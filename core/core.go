@@ -256,11 +256,11 @@ func (s *Schema) String() string {
 	funcTpl := "service " + s.ServiceName + "{ \n\n"
 	for _, m := range s.Messages {
 		funcTpl+= "\t //-----------------------" + m.Comment+"----------------------- \n"
-		funcTpl += "\t rpc Add" + m.Name + "(Add" + m.Name + "Req) returns (Add" + m.Name + "Resp); \n"
-		funcTpl += "\t rpc Update" + m.Name + "(Update" + m.Name + "Req) returns (Update" + m.Name + "Resp); \n"
-		funcTpl += "\t rpc Del" + m.Name + "(Del" + m.Name + "Req) returns (Del" + m.Name + "Resp); \n"
-		funcTpl += "\t rpc Get" + m.Name + "ById(Get" + m.Name + "ByIdReq) returns (Get" + m.Name + "ByIdResp); \n"
-		funcTpl += "\t rpc Search" + m.Name + "(Search" + m.Name + "Req) returns (Search" + m.Name + "Resp); \n"
+		funcTpl += "\t rpc Post" + m.Name + "(Post" + m.Name + "Req) returns (Post" + m.Name + "Res); \n"
+		funcTpl += "\t rpc Put" + m.Name + "(Put" + m.Name + "Req) returns (Put" + m.Name + "Res); \n"
+		funcTpl += "\t rpc Delete" + m.Name + "(Delete" + m.Name + "Req) returns (Delete" + m.Name + "Res); \n"
+		funcTpl += "\t rpc Get" + m.Name + "ById(Get" + m.Name + "ByIdReq) returns (Get" + m.Name + "ByIdRes); \n"
+		funcTpl += "\t rpc Get" + m.Name + "(Get" + m.Name + "Req) returns (Get" + m.Name + "Res); \n"
 	}
 	funcTpl = funcTpl + "\n}"
 	buf.WriteString(funcTpl)
@@ -396,7 +396,7 @@ func (m Message) GenRpcAddReqRespMessage(buf *bytes.Buffer) {
 	mOrginFields := m.Fields
 
 	//req
-	m.Name = "Add" + mOrginName + "Req"
+	m.Name = "Post" + mOrginName + "Req"
 	curFields := []MessageField{}
 	var filedTag int
 	for _, field := range m.Fields {
@@ -420,7 +420,7 @@ func (m Message) GenRpcAddReqRespMessage(buf *bytes.Buffer) {
 	m.Fields = mOrginFields
 
 	//resp
-	m.Name = "Add" + mOrginName + "Resp"
+	m.Name = "Post" + mOrginName + "Res"
 	m.Fields = []MessageField{}
 	buf.WriteString(fmt.Sprintf("%s\n", m))
 
@@ -435,7 +435,7 @@ func (m Message) GenRpcUpdateReqMessage(buf *bytes.Buffer) {
 	mOrginName := m.Name
 	mOrginFields := m.Fields
 
-	m.Name = "Update" + mOrginName + "Req"
+	m.Name = "Put" + mOrginName + "Req"
 	curFields := []MessageField{}
 	var filedTag int
 	for _, field := range m.Fields {
@@ -459,7 +459,7 @@ func (m Message) GenRpcUpdateReqMessage(buf *bytes.Buffer) {
 	m.Fields = mOrginFields
 
 	//resp
-	m.Name = "Update" + mOrginName + "Resp"
+	m.Name = "Put" + mOrginName + "Res"
 	m.Fields = []MessageField{}
 	buf.WriteString(fmt.Sprintf("%s\n", m))
 
@@ -473,7 +473,7 @@ func (m Message) GenRpcDelReqMessage(buf *bytes.Buffer) {
 	mOrginName := m.Name
 	mOrginFields := m.Fields
 
-	m.Name = "Del" + mOrginName + "Req"
+	m.Name = "Delete" + mOrginName + "Req"
 	m.Fields = []MessageField{
 		{Name: "id", Typ: "int64", tag: 1,Comment: "id"},
 	}
@@ -484,7 +484,7 @@ func (m Message) GenRpcDelReqMessage(buf *bytes.Buffer) {
 	m.Fields = mOrginFields
 
 	//resp
-	m.Name = "Del" + mOrginName + "Resp"
+	m.Name = "Delete" + mOrginName + "Res"
 	m.Fields = []MessageField{}
 	buf.WriteString(fmt.Sprintf("%s\n", m))
 
@@ -510,7 +510,7 @@ func (m Message) GenRpcGetByIdReqMessage(buf *bytes.Buffer) {
 
 	//resp
 	firstWord := strings.ToLower(string(m.Name[0]))
-	m.Name = "Get" + mOrginName + "ByIdResp"
+	m.Name = "Get" + mOrginName + "ByIdRes"
 	m.Fields = []MessageField{
 		// {Typ: mOrginName, Name: stringx.From(firstWord + mOrginName[1:]).ToCamelWithStartLower(), tag: 1,Comment: stringx.From(firstWord + mOrginName[1:]).ToCamelWithStartLower()},
 		{Typ: mOrginName, Name: stringx.From(firstWord + mOrginName[1:]).Source(), tag: 1,Comment: stringx.From(firstWord + mOrginName[1:]).Source()},
@@ -527,7 +527,7 @@ func (m Message) GenRpcSearchReqMessage(buf *bytes.Buffer) {
 	mOrginName := m.Name
 	mOrginFields := m.Fields
 
-	m.Name = "Search" + mOrginName + "Req"
+	m.Name = "Get" + mOrginName + "Req"
 	curFields := []MessageField{
 		{Typ: "int64",Name: "page",tag: 1,Comment: "page"},
 		{Typ: "int64",Name: "pageSize",tag: 2,Comment: "pageSize"},
@@ -555,7 +555,7 @@ func (m Message) GenRpcSearchReqMessage(buf *bytes.Buffer) {
 
 	//resp
 	firstWord := strings.ToLower(string(m.Name[0]))
-	m.Name = "Search" + mOrginName + "Resp"
+	m.Name = "Get" + mOrginName + "Res"
 	m.Fields = []MessageField{
 		// {Typ: "repeated " + mOrginName, Name: stringx.From(firstWord + mOrginName[1:]).ToCamelWithStartLower(), tag: 1,Comment: stringx.From(firstWord + mOrginName[1:]).ToCamelWithStartLower()},
 		{Typ: "repeated " + mOrginName, Name: stringx.From(firstWord + mOrginName[1:]).Source(), tag: 1,Comment: stringx.From(firstWord + mOrginName[1:]).Source()},
@@ -642,7 +642,7 @@ func parseColumn(s *Schema, msg *Message, col Column) error {
 	var fieldType string
 
 	switch typ {
-	case "char", "varchar", "text", "longtext", "mediumtext", "tinytext":
+	case "char", "varchar", "text", "longtext", "mediumtext", "tinytext", "json":
 		fieldType = "string"
 	case "enum", "set":
 		// Parse c.ColumnType to get the enum list
