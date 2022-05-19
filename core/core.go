@@ -4,11 +4,12 @@ import (
 	"bytes"
 	"database/sql"
 	"fmt"
-	"github.com/Mikaelemmmm/sql2pb/tools/stringx"
 	"log"
 	"regexp"
 	"sort"
 	"strings"
+
+	"github.com/Mikaelemmmm/sql2pb/tools/stringx"
 
 	"github.com/chuckpreslar/inflect"
 	"github.com/serenize/snaker"
@@ -141,7 +142,8 @@ func dbColumns(db *sql.DB, schema, table string) ([]Column, error) {
 		}
 
 		if cs.TableComment == ""{
-			cs.TableComment = stringx.From(cs.TableName).ToCamelWithStartLower()
+			// cs.TableComment = stringx.From(cs.TableName).ToCamelWithStartLower()
+			cs.TableComment = stringx.From(cs.TableName).Source()
 		}
 
 		cols = append(cols, cs)
@@ -374,7 +376,8 @@ func (m Message) GenDefaultMessage(buf *bytes.Buffer) {
 		}
 		filedTag++
 		field.tag = filedTag
-		field.Name = stringx.From(field.Name).ToCamelWithStartLower()
+		// field.Name = stringx.From(field.Name).ToCamelWithStartLower()
+		field.Name = stringx.From(field.Name).Source()
 		if field.Comment == ""{
 			field.Comment = field.Name
 		}
@@ -403,7 +406,8 @@ func (m Message) GenRpcAddReqRespMessage(buf *bytes.Buffer) {
 		}
 		filedTag++
 		field.tag = filedTag
-		field.Name = stringx.From(field.Name).ToCamelWithStartLower()
+		// field.Name = stringx.From(field.Name).ToCamelWithStartLower()
+		field.Name = stringx.From(field.Name).Source()
 		if field.Comment == ""{
 			field.Comment = field.Name
 		}
@@ -441,7 +445,8 @@ func (m Message) GenRpcUpdateReqMessage(buf *bytes.Buffer) {
 		}
 		filedTag++
 		field.tag = filedTag
-		field.Name = stringx.From(field.Name).ToCamelWithStartLower()
+		// field.Name = stringx.From(field.Name).ToCamelWithStartLower()
+		field.Name = stringx.From(field.Name).Source()
 		if field.Comment == ""{
 			field.Comment = field.Name
 		}
@@ -508,7 +513,8 @@ func (m Message) GenRpcGetByIdReqMessage(buf *bytes.Buffer) {
 	firstWord := strings.ToLower(string(m.Name[0]))
 	m.Name = "Get" + mOrginName + "ByIdResp"
 	m.Fields = []MessageField{
-		{Typ: mOrginName, Name: stringx.From(firstWord + mOrginName[1:]).ToCamelWithStartLower(), tag: 1,Comment: stringx.From(firstWord + mOrginName[1:]).ToCamelWithStartLower()},
+		// {Typ: mOrginName, Name: stringx.From(firstWord + mOrginName[1:]).ToCamelWithStartLower(), tag: 1,Comment: stringx.From(firstWord + mOrginName[1:]).ToCamelWithStartLower()},
+		{Typ: mOrginName, Name: stringx.From(firstWord + mOrginName[1:]).Source(), tag: 1,Comment: stringx.From(firstWord + mOrginName[1:]).Source()},
 	}
 	buf.WriteString(fmt.Sprintf("%s\n", m))
 
@@ -534,7 +540,8 @@ func (m Message) GenRpcSearchReqMessage(buf *bytes.Buffer) {
 		}
 		filedTag++
 		field.tag = filedTag
-		field.Name = stringx.From(field.Name).ToCamelWithStartLower()
+		// field.Name = stringx.From(field.Name).ToCamelWithStartLower()
+		field.Name = stringx.From(field.Name).Source()
 		if field.Comment == ""{
 			field.Comment = field.Name
 		}
@@ -551,7 +558,8 @@ func (m Message) GenRpcSearchReqMessage(buf *bytes.Buffer) {
 	firstWord := strings.ToLower(string(m.Name[0]))
 	m.Name = "Search" + mOrginName + "Resp"
 	m.Fields = []MessageField{
-		{Typ: "repeated " + mOrginName, Name: stringx.From(firstWord + mOrginName[1:]).ToCamelWithStartLower(), tag: 1,Comment: stringx.From(firstWord + mOrginName[1:]).ToCamelWithStartLower()},
+		// {Typ: "repeated " + mOrginName, Name: stringx.From(firstWord + mOrginName[1:]).ToCamelWithStartLower(), tag: 1,Comment: stringx.From(firstWord + mOrginName[1:]).ToCamelWithStartLower()},
+		{Typ: "repeated " + mOrginName, Name: stringx.From(firstWord + mOrginName[1:]).Source(), tag: 1,Comment: stringx.From(firstWord + mOrginName[1:]).Source()},
 	}
 	buf.WriteString(fmt.Sprintf("%s\n", m))
 
@@ -645,7 +653,8 @@ func parseColumn(s *Schema, msg *Message, col Column) error {
 			return "," == cs || "'" == cs
 		})
 
-		enumName := inflect.Singularize(snaker.SnakeToCamel(col.TableName)) + snaker.SnakeToCamel(col.ColumnName)
+		// enumName := inflect.Singularize(snaker.SnakeToCamel(col.TableName)) + snaker.SnakeToCamel(col.ColumnName)
+		enumName := inflect.Singularize(col.TableName) + col.ColumnName
 		enum, err := newEnumFromStrings(enumName,col.ColumnComment, enums)
 		if nil != err {
 			return err
