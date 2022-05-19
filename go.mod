@@ -1,5 +1,5 @@
 // module github.com/Mikaelemmmm/sql2pb
-module github.com/jglolryp/sql2pb
+module github.com/jgloryp/sql2pb
 
 go 1.18
 

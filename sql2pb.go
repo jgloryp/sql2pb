@@ -4,9 +4,12 @@ import (
 	"database/sql"
 	"flag"
 	"fmt"
-	"github.com/Mikaelemmmm/sql2pb/core"
+
+	// "github.com/Mikaelemmmm/sql2pb/core"
 	"log"
 	"strings"
+
+	"github.com/jgloryp/sql2pb/core"
 
 	_ "github.com/go-sql-driver/mysql"
 )
