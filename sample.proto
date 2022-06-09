@@ -1,0 +1,615 @@
+syntax = "proto3";
+
+option go_package ="./stamp";
+
+package stamp;
+
+// ------------------------------------ 
+// Messages
+// ------------------------------------ 
+
+//--------------------------------출석체크 이벤트--------------------------------
+message Stamp {
+  int64 id = 1; //id
+  int64 admin_register_id = 2; //이벤트를 등록한 관리자 ID
+  string type = 3; //보상 유형(경품, 티켓)
+  string title = 4; //제목
+  string sub_title = 5; //설명
+  string content = 6; //내용
+  string message = 7; //당첨자 공지 메시지
+  int64 is_display = 8; //노출 여부
+  int64 start_on = 9; //시작 년월일시
+  int64 finish_on = 10; //종료 년월일시
+  int64 sum_winner = 11; //당첨 인원
+  int64 reward_on = 12; //당첨 발표 년월일
+  int64 has_comment = 13; //댓글 여부
+  string calendar_on = 14; //캘린더 표시 기준년월
+  int64 max_alternative = 15; //최대 대체 출석 가능 수
+  int64 max_review_for_alternative = 16; //대체 출석을 위한 최대 리뷰작성 가능 수
+  int64 max_category_like_for_alternative = 17; //대체 출석을 위한 최대 관심설정 가능 수
+  string provide_thirdparty_name = 18; //제3자 정보제공 업체명
+  string provide_thirdparty_purpose = 19; //제3자 정보제공 목적
+  string provide_thirdparty_content = 20; //제3자 정보제공 내용
+  string provide_thirdparty_period = 21; //제3자 정보제공 기간
+  string comment_default = 22; //미출석일 있을 때 코멘트(대체출석 가능한 경우)
+  string comment_cheering = 23; //미출석일 있을 때 코멘트(대체출석 불가능한 경우)
+  string comment_accomplish = 24; //미출석일 없이 모두 개근한 경우 코멘트
+  string doc = 25; //doc
+  int64 created_at = 26; //created_at
+  int64 updated_at = 27; //updated_at
+  int64 deleted_at = 28; //deleted_at
+}
+
+message PostStampReq {
+  int64 admin_register_id = 1; //이벤트를 등록한 관리자 ID
+  string type = 2; //보상 유형(경품, 티켓)
+  string title = 3; //제목
+  string sub_title = 4; //설명
+  string content = 5; //내용
+  string message = 6; //당첨자 공지 메시지
+  int64 is_display = 7; //노출 여부
+  int64 start_on = 8; //시작 년월일시
+  int64 finish_on = 9; //종료 년월일시
+  int64 sum_winner = 10; //당첨 인원
+  int64 reward_on = 11; //당첨 발표 년월일
+  int64 has_comment = 12; //댓글 여부
+  string calendar_on = 13; //캘린더 표시 기준년월
+  int64 max_alternative = 14; //최대 대체 출석 가능 수
+  int64 max_review_for_alternative = 15; //대체 출석을 위한 최대 리뷰작성 가능 수
+  int64 max_category_like_for_alternative = 16; //대체 출석을 위한 최대 관심설정 가능 수
+  string provide_thirdparty_name = 17; //제3자 정보제공 업체명
+  string provide_thirdparty_purpose = 18; //제3자 정보제공 목적
+  string provide_thirdparty_content = 19; //제3자 정보제공 내용
+  string provide_thirdparty_period = 20; //제3자 정보제공 기간
+  string comment_default = 21; //미출석일 있을 때 코멘트(대체출석 가능한 경우)
+  string comment_cheering = 22; //미출석일 있을 때 코멘트(대체출석 불가능한 경우)
+  string comment_accomplish = 23; //미출석일 없이 모두 개근한 경우 코멘트
+  string doc = 24; //doc
+  int64 created_at = 25; //created_at
+  int64 updated_at = 26; //updated_at
+  int64 deleted_at = 27; //deleted_at
+}
+
+message PostStampRes {
+}
+
+message PutStampReq {
+  int64 id = 1; //id
+  int64 admin_register_id = 2; //이벤트를 등록한 관리자 ID
+  string type = 3; //보상 유형(경품, 티켓)
+  string title = 4; //제목
+  string sub_title = 5; //설명
+  string content = 6; //내용
+  string message = 7; //당첨자 공지 메시지
+  int64 is_display = 8; //노출 여부
+  int64 start_on = 9; //시작 년월일시
+  int64 finish_on = 10; //종료 년월일시
+  int64 sum_winner = 11; //당첨 인원
+  int64 reward_on = 12; //당첨 발표 년월일
+  int64 has_comment = 13; //댓글 여부
+  string calendar_on = 14; //캘린더 표시 기준년월
+  int64 max_alternative = 15; //최대 대체 출석 가능 수
+  int64 max_review_for_alternative = 16; //대체 출석을 위한 최대 리뷰작성 가능 수
+  int64 max_category_like_for_alternative = 17; //대체 출석을 위한 최대 관심설정 가능 수
+  string provide_thirdparty_name = 18; //제3자 정보제공 업체명
+  string provide_thirdparty_purpose = 19; //제3자 정보제공 목적
+  string provide_thirdparty_content = 20; //제3자 정보제공 내용
+  string provide_thirdparty_period = 21; //제3자 정보제공 기간
+  string comment_default = 22; //미출석일 있을 때 코멘트(대체출석 가능한 경우)
+  string comment_cheering = 23; //미출석일 있을 때 코멘트(대체출석 불가능한 경우)
+  string comment_accomplish = 24; //미출석일 없이 모두 개근한 경우 코멘트
+  string doc = 25; //doc
+  int64 created_at = 26; //created_at
+  int64 updated_at = 27; //updated_at
+  int64 deleted_at = 28; //deleted_at
+}
+
+message PutStampRes {
+}
+
+message DeleteStampReq {
+  int64 id = 1; //id
+}
+
+message DeleteStampRes {
+}
+
+message GetStampByIdReq {
+  int64 id = 1; //id
+}
+
+message GetStampByIdRes {
+  Stamp stamp = 1; //stamp
+}
+
+message GetStampReq {
+  int64 page = 1; //page
+  int64 pageSize = 2; //pageSize
+  int64 id = 3; //id
+  int64 admin_register_id = 4; //이벤트를 등록한 관리자 ID
+  string type = 5; //보상 유형(경품, 티켓)
+  string title = 6; //제목
+  string sub_title = 7; //설명
+  string content = 8; //내용
+  string message = 9; //당첨자 공지 메시지
+  int64 is_display = 10; //노출 여부
+  int64 start_on = 11; //시작 년월일시
+  int64 finish_on = 12; //종료 년월일시
+  int64 sum_winner = 13; //당첨 인원
+  int64 reward_on = 14; //당첨 발표 년월일
+  int64 has_comment = 15; //댓글 여부
+  string calendar_on = 16; //캘린더 표시 기준년월
+  int64 max_alternative = 17; //최대 대체 출석 가능 수
+  int64 max_review_for_alternative = 18; //대체 출석을 위한 최대 리뷰작성 가능 수
+  int64 max_category_like_for_alternative = 19; //대체 출석을 위한 최대 관심설정 가능 수
+  string provide_thirdparty_name = 20; //제3자 정보제공 업체명
+  string provide_thirdparty_purpose = 21; //제3자 정보제공 목적
+  string provide_thirdparty_content = 22; //제3자 정보제공 내용
+  string provide_thirdparty_period = 23; //제3자 정보제공 기간
+  string comment_default = 24; //미출석일 있을 때 코멘트(대체출석 가능한 경우)
+  string comment_cheering = 25; //미출석일 있을 때 코멘트(대체출석 불가능한 경우)
+  string comment_accomplish = 26; //미출석일 없이 모두 개근한 경우 코멘트
+  string doc = 27; //doc
+  int64 created_at = 28; //created_at
+  int64 updated_at = 29; //updated_at
+  int64 deleted_at = 30; //deleted_at
+}
+
+message GetStampRes {
+  repeated Stamp stamp = 1; //stamp
+}
+
+//--------------------------------출석체크 이벤트 댓글--------------------------------
+message StampComment {
+  int64 id = 1; //id
+  int64 stamp_id = 2; //출석체크 이벤트 ID
+  int64 register_id = 3; //참여자 ID
+  string content = 4; //내용
+  int64 created_at = 5; //created_at
+  int64 updated_at = 6; //updated_at
+}
+
+message PostStampCommentReq {
+  int64 stamp_id = 1; //출석체크 이벤트 ID
+  int64 register_id = 2; //참여자 ID
+  string content = 3; //내용
+  int64 created_at = 4; //created_at
+  int64 updated_at = 5; //updated_at
+}
+
+message PostStampCommentRes {
+}
+
+message PutStampCommentReq {
+  int64 id = 1; //id
+  int64 stamp_id = 2; //출석체크 이벤트 ID
+  int64 register_id = 3; //참여자 ID
+  string content = 4; //내용
+  int64 created_at = 5; //created_at
+  int64 updated_at = 6; //updated_at
+}
+
+message PutStampCommentRes {
+}
+
+message DeleteStampCommentReq {
+  int64 id = 1; //id
+}
+
+message DeleteStampCommentRes {
+}
+
+message GetStampCommentByIdReq {
+  int64 id = 1; //id
+}
+
+message GetStampCommentByIdRes {
+  StampComment stampComment = 1; //stampComment
+}
+
+message GetStampCommentReq {
+  int64 page = 1; //page
+  int64 pageSize = 2; //pageSize
+  int64 id = 3; //id
+  int64 stamp_id = 4; //출석체크 이벤트 ID
+  int64 register_id = 5; //참여자 ID
+  string content = 6; //내용
+  int64 created_at = 7; //created_at
+  int64 updated_at = 8; //updated_at
+}
+
+message GetStampCommentRes {
+  repeated StampComment stampComment = 1; //stampComment
+}
+
+//--------------------------------출석체크 이벤트 달성 조건--------------------------------
+message StampCondition {
+  int64 id = 1; //id
+  int64 stamp_id = 2; //출석체크 이벤트 ID
+  string title = 3; //제목
+  int64 sum_stamp = 4; //누적 출석 횟수
+  int64 sum_winner = 5; //당첨 인원
+  int64 created_at = 6; //created_at
+  int64 updated_at = 7; //updated_at
+}
+
+message PostStampConditionReq {
+  int64 stamp_id = 1; //출석체크 이벤트 ID
+  string title = 2; //제목
+  int64 sum_stamp = 3; //누적 출석 횟수
+  int64 sum_winner = 4; //당첨 인원
+  int64 created_at = 5; //created_at
+  int64 updated_at = 6; //updated_at
+}
+
+message PostStampConditionRes {
+}
+
+message PutStampConditionReq {
+  int64 id = 1; //id
+  int64 stamp_id = 2; //출석체크 이벤트 ID
+  string title = 3; //제목
+  int64 sum_stamp = 4; //누적 출석 횟수
+  int64 sum_winner = 5; //당첨 인원
+  int64 created_at = 6; //created_at
+  int64 updated_at = 7; //updated_at
+}
+
+message PutStampConditionRes {
+}
+
+message DeleteStampConditionReq {
+  int64 id = 1; //id
+}
+
+message DeleteStampConditionRes {
+}
+
+message GetStampConditionByIdReq {
+  int64 id = 1; //id
+}
+
+message GetStampConditionByIdRes {
+  StampCondition stampCondition = 1; //stampCondition
+}
+
+message GetStampConditionReq {
+  int64 page = 1; //page
+  int64 pageSize = 2; //pageSize
+  int64 id = 3; //id
+  int64 stamp_id = 4; //출석체크 이벤트 ID
+  string title = 5; //제목
+  int64 sum_stamp = 6; //누적 출석 횟수
+  int64 sum_winner = 7; //당첨 인원
+  int64 created_at = 8; //created_at
+  int64 updated_at = 9; //updated_at
+}
+
+message GetStampConditionRes {
+  repeated StampCondition stampCondition = 1; //stampCondition
+}
+
+//--------------------------------출석체크 이벤트 경품--------------------------------
+message StampProduct {
+  int64 id = 1; //id
+  int64 stamp_id = 2; //출석체크 이벤트 ID
+  int64 product_id = 3; //제품 ID
+  int64 quantity = 4; //제공 갯수
+  int64 created_at = 5; //created_at
+  int64 updated_at = 6; //updated_at
+}
+
+message PostStampProductReq {
+  int64 stamp_id = 1; //출석체크 이벤트 ID
+  int64 product_id = 2; //제품 ID
+  int64 quantity = 3; //제공 갯수
+  int64 created_at = 4; //created_at
+  int64 updated_at = 5; //updated_at
+}
+
+message PostStampProductRes {
+}
+
+message PutStampProductReq {
+  int64 id = 1; //id
+  int64 stamp_id = 2; //출석체크 이벤트 ID
+  int64 product_id = 3; //제품 ID
+  int64 quantity = 4; //제공 갯수
+  int64 created_at = 5; //created_at
+  int64 updated_at = 6; //updated_at
+}
+
+message PutStampProductRes {
+}
+
+message DeleteStampProductReq {
+  int64 id = 1; //id
+}
+
+message DeleteStampProductRes {
+}
+
+message GetStampProductByIdReq {
+  int64 id = 1; //id
+}
+
+message GetStampProductByIdRes {
+  StampProduct stampProduct = 1; //stampProduct
+}
+
+message GetStampProductReq {
+  int64 page = 1; //page
+  int64 pageSize = 2; //pageSize
+  int64 id = 3; //id
+  int64 stamp_id = 4; //출석체크 이벤트 ID
+  int64 product_id = 5; //제품 ID
+  int64 quantity = 6; //제공 갯수
+  int64 created_at = 7; //created_at
+  int64 updated_at = 8; //updated_at
+}
+
+message GetStampProductRes {
+  repeated StampProduct stampProduct = 1; //stampProduct
+}
+
+//--------------------------------출석체크 이벤트 참여자 정보--------------------------------
+message StampRegister {
+  int64 id = 1; //id
+  int64 stamp_id = 2; //출석체크 이벤트 ID
+  int64 register_id = 3; //참여자 ID
+  int64 admin_register_id = 4; //강제출석을 등록한 관리자 ID
+  string type = 5; //출석 유형(정상, 대체)
+  int64 review_id = 6; //대체출석의 경우 연관된 리뷰 ID
+  int64 category_like_id = 7; //대체출석의 경우 연관된 관심설정 ID
+  int64 stamped_at = 8; //출석 년월일
+  int64 created_at = 9; //created_at
+  int64 updated_at = 10; //updated_at
+}
+
+message PostStampRegisterReq {
+  int64 stamp_id = 1; //출석체크 이벤트 ID
+  int64 register_id = 2; //참여자 ID
+  int64 admin_register_id = 3; //강제출석을 등록한 관리자 ID
+  string type = 4; //출석 유형(정상, 대체)
+  int64 review_id = 5; //대체출석의 경우 연관된 리뷰 ID
+  int64 category_like_id = 6; //대체출석의 경우 연관된 관심설정 ID
+  int64 stamped_at = 7; //출석 년월일
+  int64 created_at = 8; //created_at
+  int64 updated_at = 9; //updated_at
+}
+
+message PostStampRegisterRes {
+}
+
+message PutStampRegisterReq {
+  int64 id = 1; //id
+  int64 stamp_id = 2; //출석체크 이벤트 ID
+  int64 register_id = 3; //참여자 ID
+  int64 admin_register_id = 4; //강제출석을 등록한 관리자 ID
+  string type = 5; //출석 유형(정상, 대체)
+  int64 review_id = 6; //대체출석의 경우 연관된 리뷰 ID
+  int64 category_like_id = 7; //대체출석의 경우 연관된 관심설정 ID
+  int64 stamped_at = 8; //출석 년월일
+  int64 created_at = 9; //created_at
+  int64 updated_at = 10; //updated_at
+}
+
+message PutStampRegisterRes {
+}
+
+message DeleteStampRegisterReq {
+  int64 id = 1; //id
+}
+
+message DeleteStampRegisterRes {
+}
+
+message GetStampRegisterByIdReq {
+  int64 id = 1; //id
+}
+
+message GetStampRegisterByIdRes {
+  StampRegister stampRegister = 1; //stampRegister
+}
+
+message GetStampRegisterReq {
+  int64 page = 1; //page
+  int64 pageSize = 2; //pageSize
+  int64 id = 3; //id
+  int64 stamp_id = 4; //출석체크 이벤트 ID
+  int64 register_id = 5; //참여자 ID
+  int64 admin_register_id = 6; //강제출석을 등록한 관리자 ID
+  string type = 7; //출석 유형(정상, 대체)
+  int64 review_id = 8; //대체출석의 경우 연관된 리뷰 ID
+  int64 category_like_id = 9; //대체출석의 경우 연관된 관심설정 ID
+  int64 stamped_at = 10; //출석 년월일
+  int64 created_at = 11; //created_at
+  int64 updated_at = 12; //updated_at
+}
+
+message GetStampRegisterRes {
+  repeated StampRegister stampRegister = 1; //stampRegister
+}
+
+//--------------------------------출석체크 이벤트 티켓--------------------------------
+message StampTicket {
+  int64 id = 1; //id
+  int64 stamp_id = 2; //출석체크 이벤트 ID
+  int64 event_id = 3; //이벤트 ID
+  int64 quantity = 4; //제공 갯수
+  int64 created_at = 5; //created_at
+  int64 updated_at = 6; //updated_at
+}
+
+message PostStampTicketReq {
+  int64 stamp_id = 1; //출석체크 이벤트 ID
+  int64 event_id = 2; //이벤트 ID
+  int64 quantity = 3; //제공 갯수
+  int64 created_at = 4; //created_at
+  int64 updated_at = 5; //updated_at
+}
+
+message PostStampTicketRes {
+}
+
+message PutStampTicketReq {
+  int64 id = 1; //id
+  int64 stamp_id = 2; //출석체크 이벤트 ID
+  int64 event_id = 3; //이벤트 ID
+  int64 quantity = 4; //제공 갯수
+  int64 created_at = 5; //created_at
+  int64 updated_at = 6; //updated_at
+}
+
+message PutStampTicketRes {
+}
+
+message DeleteStampTicketReq {
+  int64 id = 1; //id
+}
+
+message DeleteStampTicketRes {
+}
+
+message GetStampTicketByIdReq {
+  int64 id = 1; //id
+}
+
+message GetStampTicketByIdRes {
+  StampTicket stampTicket = 1; //stampTicket
+}
+
+message GetStampTicketReq {
+  int64 page = 1; //page
+  int64 pageSize = 2; //pageSize
+  int64 id = 3; //id
+  int64 stamp_id = 4; //출석체크 이벤트 ID
+  int64 event_id = 5; //이벤트 ID
+  int64 quantity = 6; //제공 갯수
+  int64 created_at = 7; //created_at
+  int64 updated_at = 8; //updated_at
+}
+
+message GetStampTicketRes {
+  repeated StampTicket stampTicket = 1; //stampTicket
+}
+
+//--------------------------------출석체크 이벤트 당첨자--------------------------------
+message StampWinner {
+  int64 id = 1; //id
+  int64 stamp_id = 2; //출석체크 이벤트 ID
+  int64 stamp_condition_id = 3; //출석체크 이벤트 달성 조건 ID
+  int64 register_id = 4; //참여자 ID
+  string type = 5; //당첨 유형(임시, 당첨)
+  int64 created_at = 6; //created_at
+  int64 updated_at = 7; //updated_at
+}
+
+message PostStampWinnerReq {
+  int64 stamp_id = 1; //출석체크 이벤트 ID
+  int64 stamp_condition_id = 2; //출석체크 이벤트 달성 조건 ID
+  int64 register_id = 3; //참여자 ID
+  string type = 4; //당첨 유형(임시, 당첨)
+  int64 created_at = 5; //created_at
+  int64 updated_at = 6; //updated_at
+}
+
+message PostStampWinnerRes {
+}
+
+message PutStampWinnerReq {
+  int64 id = 1; //id
+  int64 stamp_id = 2; //출석체크 이벤트 ID
+  int64 stamp_condition_id = 3; //출석체크 이벤트 달성 조건 ID
+  int64 register_id = 4; //참여자 ID
+  string type = 5; //당첨 유형(임시, 당첨)
+  int64 created_at = 6; //created_at
+  int64 updated_at = 7; //updated_at
+}
+
+message PutStampWinnerRes {
+}
+
+message DeleteStampWinnerReq {
+  int64 id = 1; //id
+}
+
+message DeleteStampWinnerRes {
+}
+
+message GetStampWinnerByIdReq {
+  int64 id = 1; //id
+}
+
+message GetStampWinnerByIdRes {
+  StampWinner stampWinner = 1; //stampWinner
+}
+
+message GetStampWinnerReq {
+  int64 page = 1; //page
+  int64 pageSize = 2; //pageSize
+  int64 id = 3; //id
+  int64 stamp_id = 4; //출석체크 이벤트 ID
+  int64 stamp_condition_id = 5; //출석체크 이벤트 달성 조건 ID
+  int64 register_id = 6; //참여자 ID
+  string type = 7; //당첨 유형(임시, 당첨)
+  int64 created_at = 8; //created_at
+  int64 updated_at = 9; //updated_at
+}
+
+message GetStampWinnerRes {
+  repeated StampWinner stampWinner = 1; //stampWinner
+}
+
+
+
+// ------------------------------------ 
+// Rpc Func
+// ------------------------------------ 
+
+service { 
+
+	 //-----------------------출석체크 이벤트----------------------- 
+	 rpc PostStamp(PostStampReq) returns (PostStampRes); 
+	 rpc PutStamp(PutStampReq) returns (PutStampRes); 
+	 rpc DeleteStamp(DeleteStampReq) returns (DeleteStampRes); 
+	 rpc GetStampById(GetStampByIdReq) returns (GetStampByIdRes); 
+	 rpc GetStamp(GetStampReq) returns (GetStampRes); 
+	 //-----------------------출석체크 이벤트 댓글----------------------- 
+	 rpc PostStampComment(PostStampCommentReq) returns (PostStampCommentRes); 
+	 rpc PutStampComment(PutStampCommentReq) returns (PutStampCommentRes); 
+	 rpc DeleteStampComment(DeleteStampCommentReq) returns (DeleteStampCommentRes); 
+	 rpc GetStampCommentById(GetStampCommentByIdReq) returns (GetStampCommentByIdRes); 
+	 rpc GetStampComment(GetStampCommentReq) returns (GetStampCommentRes); 
+	 //-----------------------출석체크 이벤트 달성 조건----------------------- 
+	 rpc PostStampCondition(PostStampConditionReq) returns (PostStampConditionRes); 
+	 rpc PutStampCondition(PutStampConditionReq) returns (PutStampConditionRes); 
+	 rpc DeleteStampCondition(DeleteStampConditionReq) returns (DeleteStampConditionRes); 
+	 rpc GetStampConditionById(GetStampConditionByIdReq) returns (GetStampConditionByIdRes); 
+	 rpc GetStampCondition(GetStampConditionReq) returns (GetStampConditionRes); 
+	 //-----------------------출석체크 이벤트 경품----------------------- 
+	 rpc PostStampProduct(PostStampProductReq) returns (PostStampProductRes); 
+	 rpc PutStampProduct(PutStampProductReq) returns (PutStampProductRes); 
+	 rpc DeleteStampProduct(DeleteStampProductReq) returns (DeleteStampProductRes); 
+	 rpc GetStampProductById(GetStampProductByIdReq) returns (GetStampProductByIdRes); 
+	 rpc GetStampProduct(GetStampProductReq) returns (GetStampProductRes); 
+	 //-----------------------출석체크 이벤트 참여자 정보----------------------- 
+	 rpc PostStampRegister(PostStampRegisterReq) returns (PostStampRegisterRes); 
+	 rpc PutStampRegister(PutStampRegisterReq) returns (PutStampRegisterRes); 
+	 rpc DeleteStampRegister(DeleteStampRegisterReq) returns (DeleteStampRegisterRes); 
+	 rpc GetStampRegisterById(GetStampRegisterByIdReq) returns (GetStampRegisterByIdRes); 
+	 rpc GetStampRegister(GetStampRegisterReq) returns (GetStampRegisterRes); 
+	 //-----------------------출석체크 이벤트 티켓----------------------- 
+	 rpc PostStampTicket(PostStampTicketReq) returns (PostStampTicketRes); 
+	 rpc PutStampTicket(PutStampTicketReq) returns (PutStampTicketRes); 
+	 rpc DeleteStampTicket(DeleteStampTicketReq) returns (DeleteStampTicketRes); 
+	 rpc GetStampTicketById(GetStampTicketByIdReq) returns (GetStampTicketByIdRes); 
+	 rpc GetStampTicket(GetStampTicketReq) returns (GetStampTicketRes); 
+	 //-----------------------출석체크 이벤트 당첨자----------------------- 
+	 rpc PostStampWinner(PostStampWinnerReq) returns (PostStampWinnerRes); 
+	 rpc PutStampWinner(PutStampWinnerReq) returns (PutStampWinnerRes); 
+	 rpc DeleteStampWinner(DeleteStampWinnerReq) returns (DeleteStampWinnerRes); 
+	 rpc GetStampWinnerById(GetStampWinnerByIdReq) returns (GetStampWinnerByIdRes); 
+	 rpc GetStampWinner(GetStampWinnerReq) returns (GetStampWinnerRes); 
+
+}
